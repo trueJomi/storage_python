@@ -1,4 +1,4 @@
-TOKEN_KEY ="5DX0:~Vc6u?9v£<[ly]!72#JA7EG"
+from domain.utils.token import TOKEN_KEY
 
 class SendQueryIamgeEntity:
     
