@@ -1,5 +1,6 @@
 domain/utils/token.py
-instructure/config/*
+instructure/config/config.py
+instructure/config/credentials_ai_api.json
 
 .idea
 .ipynb_checkpoints
