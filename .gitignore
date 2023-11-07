@@ -1,4 +1,5 @@
 domain/utils/token.py
+instructure/config/*
 
 .idea
 .ipynb_checkpoints
