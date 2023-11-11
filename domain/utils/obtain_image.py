@@ -3,7 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 from aplication.models_endpoint.images_text_input import ImageTextInput
 from domain.models.image_entity_send import SendQueryIamgeEntity
 
-API_URL="https://bcae-2001-1388-28a1-a6d5-b4eb-b1dd-e8b3-e69b.ngrok-free.app"
+API_URL="https://600d-2001-1388-28a1-a6d5-11f6-7491-3923-3864.ngrok-free.app/"
 
 def image_obtain(prompt:str):
     message_api= SendQueryIamgeEntity(prompt)
