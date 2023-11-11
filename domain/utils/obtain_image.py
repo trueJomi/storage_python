@@ -3,9 +3,9 @@ from concurrent.futures import ThreadPoolExecutor
 from aplication.models_endpoint.images_text_input import ImageTextInput
 from domain.models.image_entity_send import SendQueryIamgeEntity
 
-API_URL="https://b551-2001-1388-28a1-a6d5-c010-713d-b8ff-7004.ngrok-free.app"
+API_URL="https://a15e-2001-1388-28a1-a6d5-4033-8e50-7618-87b0.ngrok-free.app"
 
-def image_obtain( prompt:str):
+def image_obtain(prompt:str):
     message_api= SendQueryIamgeEntity(prompt)
     response =requests.post(
         f"{API_URL}/sdapi/v1/txt2img",
@@ -20,20 +20,20 @@ def image_obtain( prompt:str):
 
 
 
-# def concurrent_calls(
-#     init: str, middle: str, final: str,  token:str):
-#     with ThreadPoolExecutor(max_workers=3) as executor:
-#         init_promise = executor.submit(image_obtain, init)
-#         middle_promise = executor.submit(image_obtain, middle)
-#         final_promise = executor.submit(image_obtain, final)
-#     init = init_promise.result()
-#     middle = middle_promise.result()
-#     final = final_promise.result()
-#     return {
-#         "init":init,
-#         "middle":middle,
-#         "final":final
-#     }
+def concurrent_calls(
+    init: str, middle: str, final: str):
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        init_promise = executor.submit(image_obtain, init)
+        middle_promise = executor.submit(image_obtain, middle)
+        final_promise = executor.submit(image_obtain, final)
+    init = init_promise.result()
+    middle = middle_promise.result()
+    final = final_promise.result()
+    return {
+        "init":init,
+        "middle":middle,
+        "final":final
+    }
     
 # def lineal_call(body:ImageTextInput):
 #     init = image_obtain(body.init)
