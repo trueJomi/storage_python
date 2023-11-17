@@ -4,18 +4,20 @@ from instructure.storage import save_image
 from os import remove
 from concurrent.futures import ThreadPoolExecutor
 from domain.services.save_image_url_services import save_image_storage_with_url_service
+from domain.models.image_entity import ImageModel
+from domain.models.image3_entity import Image3Model
+from instructure.tynypng import optimize_images
 
-def get_1_image_service( prompt:str):
+def get_1_image_service( prompt:str) -> ImageModel:
     json_image =image_obtain(prompt)
     image_str = json_image["images"][0]
     image = to_image(image_str)
-    path =save_image(image["direction"], f"{image['id']}.png")
+    optimize_images(image["id"])
+    path =save_image(image["direction"], image['id'])
     remove(image["direction"])
-    return {
-        "id":image['id'],
-        "path_storage":path,
-        "params": json_image["parameters"]
-    }
+    image_class = ImageModel(image['id'], path, json_image["parameters"])
+    # print(image_class.id)
+    return image_class
     
 def get_3_image_service(
     init_prompt: str, middle_prompt: str, final_prompt: str
@@ -27,8 +29,5 @@ def get_3_image_service(
     init = init_promise.result()
     middle = middle_promise.result()
     final = final_promise.result()
-    return {
-        "introducction":init,
-        "middle":middle,
-        "end":final
-    }
+    images = Image3Model(init, middle, final)
+    return images

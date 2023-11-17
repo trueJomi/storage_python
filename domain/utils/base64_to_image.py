@@ -9,8 +9,9 @@ def to_image(str_byte_array:str):
     data_b = base64.b64decode(array_bytes)
     image = Image.open(io.BytesIO(data_b))
     id = str(uuid.uuid4())
-    direction = f"domain/static/temp/{id}.png"
+    direction = f"domain/static/temp/{id}_uopt.png"
     image.save(direction)
+    direction = f"domain/static/temp/{id}.png"
     return {
         "id": id,
         "direction":direction
