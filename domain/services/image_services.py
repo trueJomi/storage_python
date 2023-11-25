@@ -16,7 +16,6 @@ def get_1_image_service( prompt:str) -> ImageModel:
     path =save_image(image["direction"], image['id'])
     remove(image["direction"])
     image_class = ImageModel(image['id'], path, json_image["parameters"])
-    # print(image_class.id)
     return image_class
     
 def get_3_image_service(

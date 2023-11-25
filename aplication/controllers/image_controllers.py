@@ -20,14 +20,14 @@ def create_1_image(body:ImageQuery):
             status_code= status.HTTP_401_UNAUTHORIZED,
             detail=f"Error: Unauthorized API"
         )
-    # try:
-    data=get_1_image_service(body.prompt)
-    return data.to_dict()
-    # except Exception as e:
-    #     raise HTTPException(
-    #         status_code= status.HTTP_500_INTERNAL_SERVER_ERROR,
-    #         detail=f"Error: {e}"
-    #     )
+    try:
+        data=get_1_image_service(body.prompt)
+        return data.to_dict()
+    except Exception as e:
+        raise HTTPException(
+            status_code= status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error: {e}"
+        )
 
 @image_router.post(
     "/get3Images",
@@ -44,6 +44,7 @@ def images3(body:ImageTextInput):
         result_data = get_3_image_service(body.init, body.middle, body.final)
         return result_data.to_dict()
     except Exception as e:
+        print(e)
         raise HTTPException(
             status_code= status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error: {e}"
