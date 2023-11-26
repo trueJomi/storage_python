@@ -9,7 +9,7 @@ class SendQueryIamgeEntity:
         rest_message = {
             "token":TOKEN_KEY,
             "prompt": f"{self.prompt}, perfect face, master piece",
-            "negative_prompt":"bad-hands-5, bad-image-v2-39000 , NSFW",
+            "negative_prompt":"bad-hands-5, bad-image-v2-39000 , NSFW, sex, sexo",
             "styles":[
                 "string"
             ],
