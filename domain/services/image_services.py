@@ -1,4 +1,4 @@
-from domain.utils.obtain_image import image_obtain
+from domain.utils.obtain_image import exist, image_obtain
 from domain.utils.base64_to_image import to_image
 from instructure.storage import save_image
 from os import remove
@@ -30,3 +30,6 @@ def get_3_image_service(
     final = final_promise.result()
     images = Image3Model(init, middle, final)
     return images
+
+def exit_url_service():
+    return exist()

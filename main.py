@@ -18,4 +18,4 @@ app.add_middleware(
 app.include_router(image_router)    
 
 if __name__ == "__main__":
-    uvicorn.run("main:app",  port=5200, workers=4)
+    uvicorn.run("main:app",reload=True,  port=5200, workers=4)

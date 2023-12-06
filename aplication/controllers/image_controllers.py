@@ -3,7 +3,8 @@ from aplication.models_endpoint.response_entity_image import ResponseEntityImage
 from fastapi import status, HTTPException
 from aplication.models_endpoint.image_input import ImageQuery
 from domain.utils.token import comprare_token
-from domain.services.image_services import get_1_image_service, get_3_image_service
+from domain.services.image_services import (exit_url_service, get_1_image_service,
+    get_3_image_service)
 from aplication.models_endpoint.images_text_input import ImageTextInput
 from domain.services.save_image_url_services import save_image_storage_with_url_service
 from aplication.models_endpoint.url_input import QueryImageSave
@@ -23,6 +24,21 @@ def create_1_image(body:ImageQuery):
     try:
         data=get_1_image_service(body.prompt)
         return data.to_dict()
+    except Exception as e:
+        raise HTTPException(
+            status_code= status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error: {e}"
+        )
+@image_router.get(
+    "/exist",
+    status_code=status.HTTP_200_OK
+)
+def exist_image():
+    try:
+        exit_url_service()
+        return {
+            "message":"ok"
+        }
     except Exception as e:
         raise HTTPException(
             status_code= status.HTTP_500_INTERNAL_SERVER_ERROR,

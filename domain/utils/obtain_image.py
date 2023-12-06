@@ -2,7 +2,8 @@ import requests
 from concurrent.futures import ThreadPoolExecutor
 from domain.models.image_entity_send import SendQueryIamgeEntity
 
-API_URL="https://4afb-2001-1388-28a1-170d-cd8-4472-81e5-cbdd.ngrok-free.app"
+API_URL = "http://localhost:7861"
+# API_URL="https://4afb-2001-1388-28a1-170d-cd8-4472-81e5-cbdd.ngrok-free.app"
 
 def image_obtain(prompt:str):
     message_api= SendQueryIamgeEntity(prompt)
@@ -17,7 +18,13 @@ def image_obtain(prompt:str):
     json_image = response.json()
     return json_image
 
-
+def exist():
+    response = requests.get(
+        f'{API_URL}/docs',
+    )
+    if (response.status_code >= 400):
+        raise Exception(response.json()["detail"])
+    return True
 
 def concurrent_calls(
     init: str, middle: str, final: str):
@@ -33,13 +40,3 @@ def concurrent_calls(
         "middle":middle,
         "final":final
     }
-    
-# def lineal_call(body:ImageTextInput):
-#     init = image_obtain(body.init)
-#     middle = image_obtain(body.middle)
-#     final = image_obtain(body.final)
-#     return {
-#         "init":init,
-#         "middle":middle,
-#         "final":final
-#     }
